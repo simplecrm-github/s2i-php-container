@@ -3,13 +3,13 @@ FROM centos/s2i-base-centos7
 # This image provides an Apache+PHP environment for running PHP
 # applications.
 
-EXPOSE 8080
+EXPOSE 8081
 EXPOSE 8443
 
 # Description
 # This image provides an Apache 2.4 + PHP 7.1 environment for running PHP applications.
 # Exposed ports:
-# * 8080 - alternative port for http
+# * 8081 - alternative port for http
 
 ENV PHP_VERSION=7.1 \
     PHP_VER_SHORT=71 \
@@ -29,7 +29,7 @@ LABEL summary="${SUMMARY}" \
       description="${DESCRIPTION}" \
       io.k8s.description="${DESCRIPTION}" \
       io.k8s.display-name="Apache 2.4 with PHP ${PHP_VERSION}" \
-      io.openshift.expose-services="8080:http" \
+      io.openshift.expose-services="8081:http" \
       io.openshift.tags="builder,${NAME},${NAME}${PHP_VER_SHORT},rh-${NAME}${PHP_VER_SHORT}" \
       io.openshift.s2i.scripts-url="image:///usr/libexec/s2i" \
       io.s2i.scripts-url="image:///usr/libexec/s2i" \
@@ -43,7 +43,7 @@ LABEL summary="${SUMMARY}" \
 # Install Apache httpd and PHP
 RUN yum install -y centos-release-scl && \
     INSTALL_PKGS="rh-php71 rh-php71-php rh-php71-php-mysqlnd rh-php71-php-pgsql rh-php71-php-bcmath \
-                  rh-php71-php-gd rh-php71-php-intl rh-php71-php-ldap rh-php71-php-mbstring rh-php71-php-pdo \
+                  rh-php71-php-gd rh-php71-php-intl rh-php71-php-ldap rh-php71-php-mcrypt rh-php71-php-imap rh-php71-php-pear rh-php71-php-mbstring rh-php71-php-pdo \
                   rh-php71-php-process rh-php71-php-soap rh-php71-php-opcache rh-php71-php-xml \
                   rh-php71-php-gmp rh-php71-php-pecl-apcu httpd24-mod_ssl" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS --nogpgcheck && \
